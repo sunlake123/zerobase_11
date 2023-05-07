@@ -1,4 +1,6 @@
-package com.example;
+package com.example.controller;
+
+import com.example.WifiService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

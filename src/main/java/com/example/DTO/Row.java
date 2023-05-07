@@ -57,107 +57,107 @@ public class Row {
     @Expose
     private String workDttm;
 
-    public String getXSwifiMgrNo() {
+    public String getxSwifiMgrNo() {
         return xSwifiMgrNo;
     }
 
-    public void setXSwifiMgrNo(String xSwifiMgrNo) {
+    public void setxSwifiMgrNo(String xSwifiMgrNo) {
         this.xSwifiMgrNo = xSwifiMgrNo;
     }
 
-    public String getXSwifiWrdofc() {
+    public String getxSwifiWrdofc() {
         return xSwifiWrdofc;
     }
 
-    public void setXSwifiWrdofc(String xSwifiWrdofc) {
+    public void setxSwifiWrdofc(String xSwifiWrdofc) {
         this.xSwifiWrdofc = xSwifiWrdofc;
     }
 
-    public String getXSwifiMainNm() {
+    public String getxSwifiMainNm() {
         return xSwifiMainNm;
     }
 
-    public void setXSwifiMainNm(String xSwifiMainNm) {
+    public void setxSwifiMainNm(String xSwifiMainNm) {
         this.xSwifiMainNm = xSwifiMainNm;
     }
 
-    public String getXSwifiAdres1() {
+    public String getxSwifiAdres1() {
         return xSwifiAdres1;
     }
 
-    public void setXSwifiAdres1(String xSwifiAdres1) {
+    public void setxSwifiAdres1(String xSwifiAdres1) {
         this.xSwifiAdres1 = xSwifiAdres1;
     }
 
-    public String getXSwifiAdres2() {
+    public String getxSwifiAdres2() {
         return xSwifiAdres2;
     }
 
-    public void setXSwifiAdres2(String xSwifiAdres2) {
+    public void setxSwifiAdres2(String xSwifiAdres2) {
         this.xSwifiAdres2 = xSwifiAdres2;
     }
 
-    public String getXSwifiInstlFloor() {
+    public String getxSwifiInstlFloor() {
         return xSwifiInstlFloor;
     }
 
-    public void setXSwifiInstlFloor(String xSwifiInstlFloor) {
+    public void setxSwifiInstlFloor(String xSwifiInstlFloor) {
         this.xSwifiInstlFloor = xSwifiInstlFloor;
     }
 
-    public String getXSwifiInstlTy() {
+    public String getxSwifiInstlTy() {
         return xSwifiInstlTy;
     }
 
-    public void setXSwifiInstlTy(String xSwifiInstlTy) {
+    public void setxSwifiInstlTy(String xSwifiInstlTy) {
         this.xSwifiInstlTy = xSwifiInstlTy;
     }
 
-    public String getXSwifiInstlMby() {
+    public String getxSwifiInstlMby() {
         return xSwifiInstlMby;
     }
 
-    public void setXSwifiInstlMby(String xSwifiInstlMby) {
+    public void setxSwifiInstlMby(String xSwifiInstlMby) {
         this.xSwifiInstlMby = xSwifiInstlMby;
     }
 
-    public String getXSwifiSvcSe() {
+    public String getxSwifiSvcSe() {
         return xSwifiSvcSe;
     }
 
-    public void setXSwifiSvcSe(String xSwifiSvcSe) {
+    public void setxSwifiSvcSe(String xSwifiSvcSe) {
         this.xSwifiSvcSe = xSwifiSvcSe;
     }
 
-    public String getXSwifiCmcwr() {
+    public String getxSwifiCmcwr() {
         return xSwifiCmcwr;
     }
 
-    public void setXSwifiCmcwr(String xSwifiCmcwr) {
+    public void setxSwifiCmcwr(String xSwifiCmcwr) {
         this.xSwifiCmcwr = xSwifiCmcwr;
     }
 
-    public String getXSwifiCnstcYear() {
+    public String getxSwifiCnstcYear() {
         return xSwifiCnstcYear;
     }
 
-    public void setXSwifiCnstcYear(String xSwifiCnstcYear) {
+    public void setxSwifiCnstcYear(String xSwifiCnstcYear) {
         this.xSwifiCnstcYear = xSwifiCnstcYear;
     }
 
-    public String getXSwifiInoutDoor() {
+    public String getxSwifiInoutDoor() {
         return xSwifiInoutDoor;
     }
 
-    public void setXSwifiInoutDoor(String xSwifiInoutDoor) {
+    public void setxSwifiInoutDoor(String xSwifiInoutDoor) {
         this.xSwifiInoutDoor = xSwifiInoutDoor;
     }
 
-    public String getXSwifiRemars3() {
+    public String getxSwifiRemars3() {
         return xSwifiRemars3;
     }
 
-    public void setXSwifiRemars3(String xSwifiRemars3) {
+    public void setxSwifiRemars3(String xSwifiRemars3) {
         this.xSwifiRemars3 = xSwifiRemars3;
     }
 
@@ -184,5 +184,4 @@ public class Row {
     public void setWorkDttm(String workDttm) {
         this.workDttm = workDttm;
     }
-
 }
