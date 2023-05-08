@@ -30,11 +30,14 @@
         form {
             display: inline;
         }
+        #empty {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <h1><b>와이파이 정보 구하기</b></h1><br>
-<a href='/'>홈</a> | <a href='/'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="#">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
+<a href='/'>홈</a> | <a href='history'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="/bookmark-list">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
 <form action="/list" name="myLoc" method="get" id="myLoc">
     LAT : <input type="text" name="lat" value="${param.lat}">
     LNT : <input type="text" name="lnt" value="${param.lnt}">
@@ -62,7 +65,7 @@
     </tr>
     <c:choose>
         <c:when test="${empty param.lat and empty param.lnt}">
-            <tr><td colspan="17">아</td></tr>
+            <tr><td colspan="17" id="empty">위치 정보를 입력한 후에 조회해주세요.</td></tr>
         </c:when>
         <c:otherwise>
             <c:forEach var="item" items="${wifi}">

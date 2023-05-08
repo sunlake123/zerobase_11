@@ -1,8 +1,6 @@
 package com.example;
 
-import com.example.DTO.BookmarkDTO;
-import com.example.DTO.Row;
-import com.example.DTO.ShowWifiDTO;
+import com.example.DTO.*;
 import com.example.api.Calculator;
 
 import java.awt.print.Book;
@@ -33,23 +31,55 @@ public class WifiService {
         return wifiDAO.selectOne(xSwifiMgrNo);
     }
 
-    public void addBookmark(String bookmarkName) {
-        wifiDAO.addBookmark(bookmarkName);
+    public void addGroup(String bookmarkName) {
+        wifiDAO.addGroup(bookmarkName);
     }
 
-    public List<BookmarkDTO> selectGroups() {
+    public List<BookmarkGroupDTO> selectGroups() {
         return wifiDAO.selectGroups();
     }
 
-    public void editBookmark(String bookmark_no, String bookmark_name) {
-        wifiDAO.editBookmark(bookmark_no, bookmark_name);
+    public void editGroup(String bookmark_no, String bookmark_name) {
+        wifiDAO.editGroup(bookmark_no, bookmark_name);
     }
 
-    public BookmarkDTO selectGroup(String bookmarkNo) {
+    public BookmarkGroupDTO selectGroup(String bookmarkNo) {
         return wifiDAO.selectGroup(bookmarkNo);
     }
 
-    public void deleteBookmark(String bookmarkNo) {
+    public void deleteGroup(String bookmarkNo) {
         wifiDAO.deleteGroup(bookmarkNo);
+    }
+
+    public void addBookmark(String wifiName, String bookmark_name) {
+        wifiDAO.addBookmark(wifiName, bookmark_name);
+    }
+
+    public List<BookmarkDTO> selectBookmarks() {
+        return wifiDAO.selectBookmarks();
+    }
+
+    public BookmarkDTO selectBookmark(String bookmark_no) {
+        return wifiDAO.selectBookmark(bookmark_no);
+    }
+
+    public void deleteBookmark(String bookmarkNo) {
+        wifiDAO.deleteBookmark(bookmarkNo);
+    }
+
+    public void addHistory(String lat, String lnt) {
+        wifiDAO.addHistory(lat, lnt);
+    }
+
+    public List<HistoryDTO> selectAllHistory() {
+        return wifiDAO.selectAllHistory();
+    }
+
+    public HistoryDTO selectHistory(String historyId) {
+        return wifiDAO.selectHistory(historyId);
+    }
+
+    public void deleteHistory(String historyId) {
+        wifiDAO.deleteHistory(historyId);
     }
 }

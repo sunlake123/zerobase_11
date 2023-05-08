@@ -38,32 +38,30 @@
   </style>
 </head>
 <body>
-<h1><b>즐겨찾기 그룹 관리</b></h1><br>
+<h1><b>즐겨찾기 관리</b></h1><br>
 <a href='/'>홈</a> | <a href='history'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="/bookmark-list">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
-<button type="button" onclick="location.href='bookmark-group-add.jsp'">북마크 그룹 이름 추가</button>
 <table id="customers">
   <tr>
     <th>순서</th>
     <th>북마크 이름</th>
+    <th>와이파이명</th>
     <th>등록일자</th>
-    <th>수정일자</th>
     <th>비고</th>
   </tr>
   <c:choose>
-    <c:when test="${empty bookmarkGroup}">
+    <c:when test="${empty bookmarkDTOS}">
       <tr><td colspan="5" id="empty">정보가 존재하지 않습니다.</td></tr>
     </c:when>
     <c:otherwise>
-      <c:forEach var="item" items="${bookmarkGroup}">
+      <c:forEach var="item" items="${bookmarkDTOS}">
         <c:set var="i" value="${i + 1}"></c:set>
         <tr>
           <td id="no">${i}</td>
           <td>${item.bookmark_name}</td>
+          <td>${item.wifi_name}</td>
           <td>${item.bookmark_regDate}</td>
-          <td>${item.bookmark_editDate}</td>
           <td id="note">
-            <a href="bookmark-group-edit?bookmark_no=${item.bookmark_no}">수정</a>
-            <a href="bookmark-group-delete?bookmark_no=${item.bookmark_no}">삭제</a>
+            <a href="bookmark-delete?bookmark_no=${item.bookmark_no}">삭제</a>
           </td>
         </tr>
       </c:forEach>

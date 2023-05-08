@@ -15,7 +15,7 @@ public class BookmarkGroupDeleteSubmitController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String bookmark_no = req.getParameter("bookmark_no");
-        service.deleteBookmark(bookmark_no);
+        service.deleteGroup(bookmark_no);
 
         resp.sendRedirect("bookmark-group-delete-submit.jsp");
     }

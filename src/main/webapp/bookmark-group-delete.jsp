@@ -4,8 +4,8 @@
     <title>Title</title>
 </head>
 <body>
-<h1><b>와이파이 정보 구하기</b></h1><br>
-<a href='/'>홈</a> | <a href='/'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="#">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
+<h1><b>즐겨찾기 그룹 삭제</b></h1><br>
+<a href='/'>홈</a> | <a href='history'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="/bookmark-list">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
 <style>
     #customers {
         font-family: Arial, Helvetica, sans-serif;
@@ -53,7 +53,7 @@
         </tr>
         <tr>
             <td colspan="2" id="button">
-                <a href="javascript:window.history.go(-1)">돌아가기</a> | <button type="submit">수정</button>
+                <a href="javascript:window.history.go(-1)">돌아가기</a> | <button type="submit">삭제</button>
             </td>
         </tr>
     </table>

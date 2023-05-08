@@ -19,7 +19,7 @@ public class BookmarkGroupEditSubmitController extends HttpServlet {
         String bookmark_name = req.getParameter("bookmark_name");
         System.out.println(bookmark_no);
         System.out.println(bookmark_name);
-        service.editBookmark(bookmark_no, bookmark_name);
+        service.editGroup(bookmark_no, bookmark_name);
 
         resp.sendRedirect("bookmark-group-edit-submit.jsp");
     }

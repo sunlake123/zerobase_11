@@ -1,24 +1,24 @@
 package com.example.controller;
 
 import com.example.DTO.BookmarkDTO;
-import com.example.DTO.BookmarkGroupDTO;
+import com.example.DTO.HistoryDTO;
 import com.example.WifiService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/bookmarkGroup")
-public class BookmarkGroupController extends HttpServlet {
+@WebServlet("/history-delete")
+public class HistoryDeleteController extends HttpServlet {
     WifiService service = new WifiService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("/bookmarkGroup");
-        List<BookmarkGroupDTO> bookmarkGroupDTOS = service.selectGroups();
-        req.setAttribute("bookmarkGroup", bookmarkGroupDTOS);
-        req.getRequestDispatcher("bookmark-group.jsp").forward(req, resp);
+        String history_id = req.getParameter("history_id");
+        HistoryDTO historyDTO = service.selectHistory(history_id);
+        req.setAttribute("historyDTO", historyDTO);
+        req.getRequestDispatcher("history-delete.jsp").forward(req, resp);
     }
 }

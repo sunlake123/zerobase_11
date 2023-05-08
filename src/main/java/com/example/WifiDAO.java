@@ -1,11 +1,9 @@
 package com.example;
 
-import com.example.DTO.BookmarkDTO;
-import com.example.DTO.Row;
-import com.example.DTO.ShowWifiDTO;
+import com.example.DTO.*;
 import com.example.api.API;
-import com.example.DTO.WifiDTO;
 
+import java.awt.print.Book;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class WifiDAO {
             stmt = con.createStatement();
             stmt.executeUpdate("drop table if exists wifi");
             stmt.executeUpdate("create table if not exists wifi (\n" +
-                    "    xSwifiMgrNo,\n" +
+                    "    xSwifiMgrNo primary key,\n" +
                     "    xSwifiWrdofc,\n" +
                     "    xSwifiMainNm,\n" +
                     "    xSwifiAdres1,\n" +
@@ -51,13 +49,14 @@ public class WifiDAO {
             throw new RuntimeException(e);
         }
     }
+
     public int insert() throws IOException {
         System.out.println("insert()");
         API api = new API();
         int row;
         int totalCount = 0;
         for (int i = 0; i <= 0; i++) {
-            row = (i == 22)? 82 : 1000;
+            row = (i == 22) ? 82 : 1000;
             WifiDTO wifiDTO = api.takeWifi(i * 1000 + 1, i * 1000 + row);
             try {
 
@@ -148,6 +147,7 @@ public class WifiDAO {
         }
         return list;
     }
+
     public Row selectOne(String xSwifiMgrNo) {
         Row row = new Row();
         try {
@@ -187,7 +187,7 @@ public class WifiDAO {
         return row;
     }
 
-    public void addBookmark(String bookmarkName) {
+    public void addGroup(String bookmarkName) {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
@@ -201,9 +201,9 @@ public class WifiDAO {
         }
     }
 
-    public List<BookmarkDTO> selectGroups() {
+    public List<BookmarkGroupDTO> selectGroups() {
         System.out.println("selectGroups()");
-        List<BookmarkDTO> bookmarkDTOS = new ArrayList<>();
+        List<BookmarkGroupDTO> bookmarkDTOS = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
@@ -214,12 +214,19 @@ public class WifiDAO {
                     "          bookmark_regDate,\n" +
                     "          bookmark_editDate\n" +
                     "      )");
+            stmt.executeUpdate("create table if not exists wifi_bookmark (\n" +
+                    "    bookmark_no integer primary key autoincrement,\n" +
+                    "    bookmark_name,\n" +
+                    "    wifi_name,\n" +
+                    "    bookmark_regDate, \n" +
+                    "    constraint fk_bookmark_no foreign key(bookmark_no) references bookmark(bookmark_no) on delete cascade\n" +
+                    ")");
             stmt.close();
             String sql = "select * from bookmark";
             psmt = con.prepareStatement(sql);
             rs = psmt.executeQuery();
             while (rs.next()) {
-                BookmarkDTO bookmarkDTO = new BookmarkDTO();
+                BookmarkGroupDTO bookmarkDTO = new BookmarkGroupDTO();
                 bookmarkDTO.setBookmark_no(Integer.parseInt(rs.getString(1)));
                 bookmarkDTO.setBookmark_name(rs.getString(2));
                 bookmarkDTO.setBookmark_regDate(rs.getString(3));
@@ -234,7 +241,8 @@ public class WifiDAO {
         }
         return bookmarkDTOS;
     }
-    public void editBookmark(String bookmark_no, String bookmark_name) {
+
+    public void editGroup(String bookmark_no, String bookmark_name) {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
@@ -250,8 +258,8 @@ public class WifiDAO {
         }
     }
 
-    public BookmarkDTO selectGroup(String bookmarkNo) {
-        BookmarkDTO bookmarkDTO = new BookmarkDTO();
+    public BookmarkGroupDTO selectGroup(String bookmarkNo) {
+        BookmarkGroupDTO bookmarkDTO = new BookmarkGroupDTO();
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
@@ -259,10 +267,10 @@ public class WifiDAO {
             psmt = con.prepareStatement(sql);
             psmt.setString(1, bookmarkNo);
             rs = psmt.executeQuery();
-                bookmarkDTO.setBookmark_no(Integer.parseInt(rs.getString(1)));
-                bookmarkDTO.setBookmark_name(rs.getString(2));
-                bookmarkDTO.setBookmark_regDate(rs.getString(3));
-                bookmarkDTO.setBookmark_editDate(rs.getString(4));
+            bookmarkDTO.setBookmark_no(Integer.parseInt(rs.getString(1)));
+            bookmarkDTO.setBookmark_name(rs.getString(2));
+            bookmarkDTO.setBookmark_regDate(rs.getString(3));
+            bookmarkDTO.setBookmark_editDate(rs.getString(4));
             rs.close();
             psmt.close();
             con.close();
@@ -271,6 +279,7 @@ public class WifiDAO {
         }
         return bookmarkDTO;
     }
+
     public void deleteGroup(String bookmarkNo) {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -280,6 +289,173 @@ public class WifiDAO {
             psmt.setString(1, bookmarkNo);
             psmt.executeUpdate();
 
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addBookmark(String wifi_name, String bookmark_name) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "insert into wifi_bookmark (bookmark_name, wifi_name, bookmark_regDate) values(?, ?, datetime('now','localtime'))";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, bookmark_name);
+            psmt.setString(2, wifi_name);
+            psmt.executeUpdate();
+
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<BookmarkDTO> selectBookmarks() {
+        List<BookmarkDTO> bookmarkDTOS = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "select * from wifi_bookmark";
+            psmt = con.prepareStatement(sql);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                BookmarkDTO bookmarkDTO = new BookmarkDTO();
+                bookmarkDTO.setBookmark_no(rs.getString(1));
+                bookmarkDTO.setBookmark_name(rs.getString(2));
+                bookmarkDTO.setWifi_name(rs.getString(3));
+                bookmarkDTO.setBookmark_regDate(rs.getString(4));
+                bookmarkDTOS.add(bookmarkDTO);
+            }
+            rs.close();
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookmarkDTOS;
+    }
+
+    public BookmarkDTO selectBookmark(String bookmark_no) {
+        BookmarkDTO bookmarkDTO = new BookmarkDTO();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "select * from wifi_bookmark where bookmark_no = ?";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, bookmark_no);
+            rs = psmt.executeQuery();
+            bookmarkDTO.setBookmark_no(rs.getString(1));
+            bookmarkDTO.setBookmark_name(rs.getString(2));
+            bookmarkDTO.setWifi_name(rs.getString(3));
+            bookmarkDTO.setBookmark_regDate(rs.getString(4));
+            rs.close();
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bookmarkDTO;
+    }
+
+    public void deleteBookmark(String bookmarkNo) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "delete from wifi_bookmark where bookmark_no = ?";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, bookmarkNo);
+            psmt.executeUpdate();
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addHistory(String lat, String lnt) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            stmt = con.createStatement();
+            stmt.executeUpdate("create table if not exists history (" +
+                    "history_id integer primary key autoincrement," +
+                    "history_lat," +
+                    "history_lnt," +
+                    "history_regDate" +
+                    ")");
+            stmt.close();
+
+            String sql = "insert into history (history_lat, history_lnt, history_regDate) values (?, ?, datetime('now','localtime'))";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, lat);
+            psmt.setString(2, lnt);
+            psmt.executeUpdate();
+
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<HistoryDTO> selectAllHistory() {
+        List<HistoryDTO> historyDTOS = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "select * from history";
+            psmt = con.prepareStatement(sql);
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                HistoryDTO historyDTO = new HistoryDTO();
+                historyDTO.setHistory_id(rs.getString(1));
+                historyDTO.setHistory_lat(rs.getString(2));
+                historyDTO.setHistory_lnt(rs.getString(3));
+                historyDTO.setHistory_regDate(rs.getString(4));
+                historyDTOS.add(historyDTO);
+            }
+            rs.close();
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return historyDTOS;
+    }
+
+    public HistoryDTO selectHistory(String historyId) {
+        HistoryDTO historyDTO = new HistoryDTO();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "select * from history where history_id = ?";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, historyId);
+            rs = psmt.executeQuery();
+            historyDTO.setHistory_id(rs.getString(1));
+            historyDTO.setHistory_lat(rs.getString(2));
+            historyDTO.setHistory_lnt(rs.getString(3));
+            historyDTO.setHistory_regDate(rs.getString(4));
+            rs.close();
+            psmt.close();
+            con.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return historyDTO;
+    }
+
+    public void deleteHistory(String historyId) {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection(url);
+            String sql = "delete from history where history_id = ?";
+            psmt = con.prepareStatement(sql);
+            psmt.setString(1, historyId);
+            psmt.executeUpdate();
             psmt.close();
             con.close();
         } catch (ClassNotFoundException | SQLException e) {

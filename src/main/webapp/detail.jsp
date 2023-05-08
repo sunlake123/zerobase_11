@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <style>
@@ -37,12 +38,18 @@
   </style>
 </head>
 <body>
-<h1><b>와이파이 정보 구하기</b></h1><br>
-<a href='/'>홈</a> | <a href='/'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="#">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
-<form method="get" action="bookmark-group-add.jsp">
-  <select>
+<h1><b>와이파이 상세 정보</b></h1><br>
+<a href='/'>홈</a> | <a href='history'>위치 히스토리 목록</a> | <a href='load-wifi'>Open API 와이파이 정보 가져오기</a> | <a href="/bookmark-list">즐겨찾기 보기</a> | <a href="/bookmarkGroup">즐겨찾기 그룹 관리</a><br><br>
+<form method="post" action="bookmark-add-submit">
+  <select name="bookmark_name">
     <option value="" selected disabled hidden>북마크 그룹 이름 선택</option>
+
+    <c:forEach items="${bookmarkDTOS}" var="item">
+      <option value="${item.bookmark_name}">${item.bookmark_name}</option>
+    </c:forEach>
+
   </select>
+  <input type="hidden" name="wifi_name" value="${detail.xSwifiMainNm}">
   <button type="submit">즐겨찾기 추가하기</button>
 </form>
 <table id="customers">

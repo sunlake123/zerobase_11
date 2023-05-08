@@ -16,12 +16,14 @@ public class ShowWifiController extends HttpServlet {
     WifiService service = new WifiService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("옴?");
-        double lat = Double.parseDouble(req.getParameter("lat"));
-        System.out.println("lat = " + lat);
-        double lnt = Double.parseDouble(req.getParameter("lnt"));
-        System.out.println("lnt = " + lnt);
-        List<ShowWifiDTO> showWifiDTOS = service.showWifi(lat, lnt);
+        String lat = req.getParameter("lat");
+        String lnt = req.getParameter("lnt");
+        if (lat != null && lat != "" && lnt != null && lnt != "") {
+            service.addHistory(lat, lnt);
+        }
+        double latDouble = Double.parseDouble(req.getParameter("lat"));
+        double lntDouble = Double.parseDouble(req.getParameter("lnt"));
+        List<ShowWifiDTO> showWifiDTOS = service.showWifi(latDouble, lntDouble);
         req.setAttribute("wifi", showWifiDTOS);
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }

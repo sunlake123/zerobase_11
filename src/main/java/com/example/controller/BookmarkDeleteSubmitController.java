@@ -9,15 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/bookmark-group-add-submit")
-public class BookmarkGroupAddSubmitController extends HttpServlet {
+@WebServlet("/bookmark-delete-submit")
+public class BookmarkDeleteSubmitController extends HttpServlet {
     WifiService service = new WifiService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        String bookmarkName = req.getParameter("bookmark_name");
-        service.addGroup(bookmarkName);
-
-        resp.sendRedirect("bookmark-group-add-submit.jsp");
+        String bookmark_no = req.getParameter("bookmark_no");
+        service.deleteBookmark(bookmark_no);
+        resp.sendRedirect("bookmark-delete-submit.jsp");
     }
 }
