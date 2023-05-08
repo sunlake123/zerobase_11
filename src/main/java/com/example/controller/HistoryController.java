@@ -18,7 +18,6 @@ public class HistoryController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<HistoryDTO> historyDTOS = service.selectAllHistory();
         req.setAttribute("historyDTOS", historyDTOS);
-        System.out.println(historyDTOS.size());
         req.setAttribute("size", historyDTOS.size());
         req.getRequestDispatcher("history.jsp").forward(req,resp);
     }

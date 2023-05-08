@@ -17,14 +17,13 @@ public class WifiDAO {
     private String url = "jdbc:sqlite:C:\\Users\\KWY\\IdeaProjects\\Mission_1\\wifi.db";
 
     public void createTable() {
-        System.out.println("createTable()");
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection(url);
             stmt = con.createStatement();
             stmt.executeUpdate("drop table if exists wifi");
             stmt.executeUpdate("create table if not exists wifi (\n" +
-                    "    xSwifiMgrNo primary key,\n" +
+                    "    xSwifiMgrNo,\n" +
                     "    xSwifiWrdofc,\n" +
                     "    xSwifiMainNm,\n" +
                     "    xSwifiAdres1,\n" +
@@ -51,12 +50,11 @@ public class WifiDAO {
     }
 
     public int insert() throws IOException {
-        System.out.println("insert()");
         API api = new API();
+        int totalCount = api.takeWifi(0, 1).getTbPublicWifiInfo().getListTotalCount();
         int row;
-        int totalCount = 0;
-        for (int i = 0; i <= 22; i++) {
-            row = (i == 22) ? 81 : 1000;
+        for (int i = 0; i <= 23; i++) {
+            row = (i == 23) ? totalCount % 1000 : 1000;
             WifiDTO wifiDTO = api.takeWifi(i * 1000 + 1, i * 1000 + row);
             try {
 
@@ -90,7 +88,6 @@ public class WifiDAO {
                     psmt.setString(16, wifiDTO.getTbPublicWifiInfo().getRow().get(j).getWorkDttm());
 
                     psmt.executeUpdate();
-                    System.out.println("왔니?");
                 }
 
                 psmt.close();
@@ -202,7 +199,6 @@ public class WifiDAO {
     }
 
     public List<BookmarkGroupDTO> selectGroups() {
-        System.out.println("selectGroups()");
         List<BookmarkGroupDTO> bookmarkDTOS = new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");

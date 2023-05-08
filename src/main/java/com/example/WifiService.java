@@ -11,7 +11,6 @@ public class WifiService {
 
     WifiDAO wifiDAO = new WifiDAO();
     public int insertWifi() throws IOException {
-        System.out.println("insertWifi()");
         wifiDAO.createTable();
         return wifiDAO.insert();
     }

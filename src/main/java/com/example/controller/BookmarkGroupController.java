@@ -16,7 +16,6 @@ public class BookmarkGroupController extends HttpServlet {
     WifiService service = new WifiService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("/bookmarkGroup");
         List<BookmarkGroupDTO> bookmarkGroupDTOS = service.selectGroups();
         req.setAttribute("bookmarkGroup", bookmarkGroupDTOS);
         req.getRequestDispatcher("bookmark-group.jsp").forward(req, resp);

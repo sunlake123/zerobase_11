@@ -17,8 +17,7 @@ public class BookmarkGroupEditSubmitController extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String bookmark_no = req.getParameter("bookmark_no");
         String bookmark_name = req.getParameter("bookmark_name");
-        System.out.println(bookmark_no);
-        System.out.println(bookmark_name);
+
         service.editGroup(bookmark_no, bookmark_name);
 
         resp.sendRedirect("bookmark-group-edit-submit.jsp");

@@ -15,7 +15,6 @@ public class LoadWifiController extends HttpServlet {
     WifiService service = new WifiService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("doGet");
         req.setAttribute("totalCount", service.insertWifi());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/load-wifi.jsp");
         requestDispatcher.forward(req, resp);
