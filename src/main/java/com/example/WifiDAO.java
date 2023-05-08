@@ -55,8 +55,8 @@ public class WifiDAO {
         API api = new API();
         int row;
         int totalCount = 0;
-        for (int i = 0; i <= 0; i++) {
-            row = (i == 22) ? 82 : 1000;
+        for (int i = 0; i <= 22; i++) {
+            row = (i == 22) ? 81 : 1000;
             WifiDTO wifiDTO = api.takeWifi(i * 1000 + 1, i * 1000 + row);
             try {
 
